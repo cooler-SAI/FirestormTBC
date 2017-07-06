@@ -1,13 +1,10 @@
-# C(ontinued)-MaNGOS -- README
-[![Build Status](https://travis-ci.org/cmangos/mangos-tbc.svg?branch=master)](https://travis-ci.org/cmangos/mangos-tbc) [![Windows Build status](https://ci.appveyor.com/api/projects/status/github/cmangos/mangos-tbc?branch=master&svg=true)](https://ci.appveyor.com/project/cmangos/mangos-tbc/branch/master)
+# Firestorm Freelance -- README
 
-This file is part of the CMaNGOS Project. See [AUTHORS](AUTHORS.md) file for Copyright information
+This file is part of the Firestorm Freelance Project. See [AUTHORS](AUTHORS.md) file for Copyright information
 
-## Welcome to C(ontinued)-MaNGOS
+## Welcome to Firestorm Freelance
 
-C(ontinued)-MaNGOS is a free project with the following goal:
-
-  **Doing WoW-Emulation Right!**
+Firestorm Freelance is a free project with the following goal:
 
 This means, we want to focus on:
 
@@ -46,11 +43,11 @@ To be able to accomplish these goals, we support and promote:
   * We only argue about content, and not about thin air!
   * We follow the [Netiquette](http://tools.ietf.org/html/rfc1855).
 
--- The C(ontinued)-MaNGOS Team!
+-- The Firestorm Freelance Team!
 
-## ScriptDev2
+## ScriptDev2 - Limited Support
   ScriptDev2 is a script library, an extention of the scripting capabilities
-  that comes with cMaNGOS ( http://cmangos.net/ ), written in C++ and is
+  that comes with Firestorm Freelance, written in C++ and is
   compatible with Windows and Linux. SQL needed for database support both
   MySQL and PostgreSQL.
 
@@ -71,22 +68,9 @@ To be able to accomplish these goals, we support and promote:
   version, make sure to take a look at the SQL files provided in the
   ../sql/updates/
 
-## Further information
-
-  You can find further information about CMaNGOS at the following places:
-  * [CMaNGOS Forum](http://cmangos.net/)
-  * CMaNGOS IRC channel: #cmangos on irc.rizon.net
-  * [GitHub repositories](https://github.com/cmangos/)
-  * [Issue tracker](https://github.com/cmangos/issues/issues)
-  * [Pull Requests](https://github.com/cmangos/mangos-tbc/pulls)
-  * [Current build status on Travis CI](https://travis-ci.org/cmangos/mangos-tbc/)
-  * [Wiki](https://github.com/cmangos/issues/wiki) with additional information on installation
-  * [Contributing Guidelines](CONTRIBUTING.md)
-  * Documentation can be found in the doc/ subdirectory and on the GitHub wiki
-
 ## License
 
-  CMaNGOS is free software; you can redistribute it and/or modify
+  Firestorm Freelance is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
   the Free Software Foundation; either version 2 of the License, or
   (at your option) any later version.
@@ -105,10 +89,10 @@ To be able to accomplish these goals, we support and promote:
 
 ### Exceptions to GPL
 
-  Some third-party libraries CMaNGOS uses have other licenses, that must be
+  Some third-party libraries Firestorm Freelance uses have other licenses, that must be
   uphold.  These libraries are located within the dep/ directory
 
-  In addition, as a special exception, the CMaNGOS project
+  In addition, as a special exception, the Firestorm Freelance project
   gives permission to link the code of its release of MaNGOS with the
   OpenSSL project's "OpenSSL" library (or with modified versions of it
   that use the same license as the "OpenSSL" library), and distribute

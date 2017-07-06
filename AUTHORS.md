@@ -1,12 +1,12 @@
-# List of AUTHORS who contributed over time to the CMaNGOS project
+# List of AUTHORS who contributed over time to the Firestorm Freelance project
 
 ## Warning
-The code of CMaNGOS is shipped as it is without any form of warranty,
+The code of Firestorm Freelance is shipped as it is without any form of warranty,
 and - except for third party libraries - licensed under the GPL 2.0,
 which you can read from the file "COPYING"
 
 ## Point of current development
-The project is currently hosted at http://cmangos.net and developed under https://github.com/cmangos
+The project is currently hosted at http://www.firestorm-freelance.net and developed under https://github.com/firestorm-freelance
 
 ## History of development
 Development of this project dates back to 2004, and was developed under various umbrellas over time:
@@ -14,6 +14,7 @@ Development of this project dates back to 2004, and was developed under various 
 * MaNGOS project, 2005-2008, located at http://www.mangosproject.org
 * MaNGOS project, 2008-2012, located at http://getmangos.com
 * CMaNGOS project, 2012-2016, located at http://cmangos.net
+* Firestorm Freelance Project 2016-2017 at http://www.firestorm-freelance.net
 
 ## Authorship of the code
 Authorship is assigned for each commit within the git history, which is stored in these git repositories:
