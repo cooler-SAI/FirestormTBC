@@ -214,14 +214,14 @@ bool ChatHandler::HandleAccountPasswordCommand(char* args)
         return false;
     }
 
-    if (!sAccountMgr.CheckPassword(GetAccountId(), password_old))
+    if (!sAccountMgr->CheckPassword(GetAccountId(), password_old))
     {
         SendSysMessage(LANG_COMMAND_WRONGOLDPASSWORD);
         SetSentErrorMessage(true);
         return false;
     }
 
-    AccountOpResult result = sAccountMgr.ChangePassword(GetAccountId(), password_new);
+    AccountOpResult result = sAccountMgr->ChangePassword(GetAccountId(), password_new);
 
     switch (result)
     {

@@ -74,7 +74,7 @@ bool ChatHandler::HandleAccountDeleteCommand(char* args)
     if (HasLowerSecurityAccount(nullptr, account_id, true))
         return false;
 
-    AccountOpResult result = sAccountMgr.DeleteAccount(account_id);
+    AccountOpResult result = sAccountMgr->DeleteAccount(account_id);
     switch (result)
     {
         case AOR_OK:
@@ -137,7 +137,7 @@ bool ChatHandler::GetDeletedCharacterInfoList(DeletedInfoList& foundList, std::s
             info.accountId  = fields[2].GetUInt32();
 
             // account name will be empty for nonexistent account
-            sAccountMgr.GetName(info.accountId, info.accountName);
+            sAccountMgr->GetName(info.accountId, info.accountName);
 
             info.deleteDate = time_t(fields[3].GetUInt64());
 
@@ -263,7 +263,7 @@ void ChatHandler::HandleCharacterDeletedRestoreHelper(DeletedInfo const& delInfo
     }
 
     // check character count
-    uint32 charcount = sAccountMgr.GetCharactersCount(delInfo.accountId);
+    uint32 charcount = sAccountMgr->GetCharactersCount(delInfo.accountId);
     if (charcount >= 10)
     {
         PSendSysMessage(LANG_CHARACTER_DELETED_SKIP_FULL, delInfo.name.c_str(), delInfo.lowguid, delInfo.accountId);
@@ -335,7 +335,7 @@ bool ChatHandler::HandleCharacterDeletedRestoreCommand(char* args)
         if (newAccount && newAccount != delInfo.accountId)
         {
             delInfo.accountId = newAccount;
-            sAccountMgr.GetName(newAccount, delInfo.accountName);
+            sAccountMgr->GetName(newAccount, delInfo.accountName);
         }
 
         HandleCharacterDeletedRestoreHelper(delInfo);
@@ -430,7 +430,7 @@ bool ChatHandler::HandleCharacterEraseCommand(char* args)
         account_id = sObjectMgr.GetPlayerAccountIdByGUID(target_guid);
 
     std::string account_name;
-    sAccountMgr.GetName(account_id, account_name);
+    sAccountMgr->GetName(account_id, account_name);
 
     Player::DeleteFromDB(target_guid, account_id, true, true);
     PSendSysMessage(LANG_CHARACTER_DELETED, target_name.c_str(), target_guid.GetCounter(), account_name.c_str(), account_id);
@@ -483,9 +483,7 @@ bool ChatHandler::HandleAccountCreateCommand(char* args)
     AccountOpResult result;
     uint32 expansion = 0;
     if (ExtractUInt32(&args, expansion))
-        result = sAccountMgr.CreateAccount(account_name, password, expansion);
-    else
-        result = sAccountMgr.CreateAccount(account_name, password);
+        result = sAccountMgr->CreateAccount(account_name, password);
     switch (result)
     {
         case AOR_OK:

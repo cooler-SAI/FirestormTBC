@@ -1148,7 +1148,7 @@ bool ChatHandler::HandleAccountSetPasswordCommand(char* args)
         return false;
     }
 
-    AccountOpResult result = sAccountMgr.ChangePassword(targetAccountId, szPassword1);
+    AccountOpResult result = sAccountMgr->ChangePassword(targetAccountId, szPassword1);
 
     switch (result)
     {
@@ -5187,7 +5187,7 @@ bool ChatHandler::HandleBanInfoCharacterCommand(char* args)
     uint32 accountid = target ? target->GetSession()->GetAccountId() : sObjectMgr.GetPlayerAccountIdByGUID(target_guid);
 
     std::string accountname;
-    if (!sAccountMgr.GetName(accountid, accountname))
+    if (!sAccountMgr->GetName(accountid, accountname))
     {
         PSendSysMessage(LANG_BANINFO_NOCHARACTER);
         return true;
@@ -5348,7 +5348,7 @@ bool ChatHandler::HandleBanListHelper(QueryResult* result)
                 account_name = fields[1].GetCppString();
             // "character" case, name need extract from another DB
             else
-                sAccountMgr.GetName(account_id, account_name);
+                sAccountMgr->GetName(account_id, account_name);
 
             // No SQL injection. id is uint32.
             QueryResult* banInfo = LoginDatabase.PQuery("SELECT bandate,unbandate,bannedby,banreason FROM account_banned WHERE id = %u ORDER BY unbandate", account_id);

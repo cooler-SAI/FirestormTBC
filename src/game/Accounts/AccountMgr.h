@@ -32,28 +32,31 @@ enum AccountOpResult
 };
 
 #define MAX_ACCOUNT_STR 16
+#define MAX_PASSWORD_STR 16
 
 class AccountMgr
 {
-    public:
+    private:
         AccountMgr();
         ~AccountMgr();
 
-        AccountOpResult CreateAccount(std::string username, std::string password) const;
-        AccountOpResult CreateAccount(std::string username, std::string password, uint32 expansion) const;
-        AccountOpResult DeleteAccount(uint32 accid) const;
-        AccountOpResult ChangeUsername(uint32 accid, std::string new_uname, std::string new_passwd) const;
-        AccountOpResult ChangePassword(uint32 accid, std::string new_passwd) const;
-        bool CheckPassword(uint32 accid, std::string passwd) const;
+    public:
+        static AccountMgr* instance();
 
-        uint32 GetId(std::string username) const;
+        AccountOpResult CreateAccount(std::string username, std::string password);
+        static AccountOpResult DeleteAccount(uint32 accid);
+        static AccountOpResult ChangeUsername(uint32 accid, std::string new_uname, std::string new_passwd);
+        static AccountOpResult ChangePassword(uint32 accid, std::string new_passwd);
+        static bool CheckPassword(uint32 accid, std::string passwd);
+
+        static uint32 GetId(std::string username);
         static AccountTypes GetSecurity(uint32 acc_id);
-        bool GetName(uint32 acc_id, std::string& name) const;
-        uint32 GetCharactersCount(uint32 acc_id) const;
-        std::string CalculateShaPassHash(std::string& name, std::string& password) const;
+        static bool GetName(uint32 acc_id, std::string& name);
+        static uint32 GetCharactersCount(uint32 acc_id);
+        static std::string CalculateShaPassHash(std::string& name, std::string& password);
 
         static bool normalizeString(std::string& utf8str);
 };
 
-#define sAccountMgr MaNGOS::Singleton<AccountMgr>::Instance()
+#define sAccountMgr AccountMgr::instance()
 #endif

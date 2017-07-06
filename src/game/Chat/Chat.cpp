@@ -882,7 +882,7 @@ bool ChatHandler::HasLowerSecurityAccount(WorldSession* target, uint32 target_ac
     if (target)
         target_sec = target->GetSecurity();
     else if (target_account)
-        target_sec = sAccountMgr.GetSecurity(target_account);
+        target_sec = sAccountMgr->GetSecurity(target_account);
     else
         return true;                                        // caller must report error for (target==nullptr && target_account==0)
 
@@ -3093,7 +3093,7 @@ uint32 ChatHandler::ExtractAccountId(char** args, std::string* accountName /*= n
         account_id = targetPlayer->GetSession()->GetAccountId();
 
         if (accountName)
-            sAccountMgr.GetName(account_id, *accountName);
+            sAccountMgr->GetName(account_id, *accountName);
 
         if (targetIfNullArg)
             *targetIfNullArg = targetPlayer;
@@ -3105,7 +3105,7 @@ uint32 ChatHandler::ExtractAccountId(char** args, std::string* accountName /*= n
 
     if (ExtractUInt32(&account_str, account_id))
     {
-        if (!sAccountMgr.GetName(account_id, account_name))
+        if (!sAccountMgr->GetName(account_id, account_name))
         {
             PSendSysMessage(LANG_ACCOUNT_NOT_EXIST, account_str);
             SetSentErrorMessage(true);
@@ -3122,7 +3122,7 @@ uint32 ChatHandler::ExtractAccountId(char** args, std::string* accountName /*= n
             return 0;
         }
 
-        account_id = sAccountMgr.GetId(account_name);
+        account_id = sAccountMgr->GetId(account_name);
         if (!account_id)
         {
             PSendSysMessage(LANG_ACCOUNT_NOT_EXIST, account_name.c_str());

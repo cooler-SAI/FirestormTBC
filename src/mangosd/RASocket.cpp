@@ -111,7 +111,7 @@ bool RASocket::HandleInput()
         /// <ul> <li> If the input is '<username>'
         case AuthLevel::None:
         {
-            m_accountId = sAccountMgr.GetId(m_input);
+            m_accountId = sAccountMgr->GetId(m_input);
 
             ///- If the user is not found, deny access
             if (!m_accountId)
@@ -127,7 +127,7 @@ bool RASocket::HandleInput()
                 break;
             }
 
-            m_accountLevel = sAccountMgr.GetSecurity(m_accountId);
+            m_accountLevel = sAccountMgr->GetSecurity(m_accountId);
 
             ///- if gmlevel is too low, deny access
             if (m_accountLevel < minLevel)
@@ -155,7 +155,7 @@ bool RASocket::HandleInput()
         case AuthLevel::HaveUsername:
         {
             // login+pass ok
-            if (sAccountMgr.CheckPassword(m_accountId, m_input))
+            if (sAccountMgr->CheckPassword(m_accountId, m_input))
             {
                 m_authLevel = AuthLevel::Authenticated;
 

@@ -410,7 +410,7 @@ DumpReturn PlayerDumpReader::LoadDump(const std::string& file, uint32 account, s
     bool nameInvalidated = false;                           // set when name changed or will requested changed at next login
 
     // check character count
-    uint32 charcount = sAccountMgr.GetCharactersCount(account);
+    uint32 charcount = sAccountMgr->GetCharactersCount(account);
     if (charcount >= 10)
         return DUMP_TOO_MANY_CHARS;
 
