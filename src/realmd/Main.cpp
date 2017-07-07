@@ -44,11 +44,15 @@
 #include <chrono>
 #include <thread>
 
+#ifndef _REALM_CONFIG
+#define _REALM_CONFIG   "realmd.conf"
+#endif
+
 #ifdef _WIN32
 #include "ServiceWin32.h"
 char serviceName[] = "realmd";
-char serviceLongName[] = "MaNGOS realmd service";
-char serviceDescription[] = "Massive Network Game Object Server";
+char serviceLongName[] = "Authenication Service";
+char serviceDescription[] = "World of Warcraft Authentication Service";
 /*
  * -1 - not in service mode
  *  0 - stopped
@@ -94,7 +98,7 @@ int main(int argc, char *argv[])
 
     boost::program_options::options_description desc("Allowed options");
     desc.add_options()
-        ("config,c", boost::program_options::value<std::string>(&configFile)->default_value(_REALMD_CONFIG), "configuration file")
+        ("config,c", boost::program_options::value<std::string>(&configFile)->default_value(_REALM_CONFIG), "configuration file")
         ("version,v", "print version and exit")
 #ifdef _WIN32
         ("s", boost::program_options::value<std::string>(&serviceParameter), "<run, install, uninstall> service");
@@ -207,8 +211,8 @@ int main(int argc, char *argv[])
     }
 
     ///- Get the list of realms for the server
-    sRealmList.Initialize(sConfig.GetIntDefault("RealmsStateUpdateDelay", 20));
-    if (sRealmList.size() == 0)
+    sRealmList->Initialize(sConfig.GetIntDefault("RealmsStateUpdateDelay", 20));
+    if (sRealmList->size() == 0)
     {
         sLog.outError("No valid realms specified.");
         Log::WaitBeforeContinueIfNeed();
@@ -218,8 +222,8 @@ int main(int argc, char *argv[])
     // cleanup query
     // set expired bans to inactive
     LoginDatabase.BeginTransaction();
-    LoginDatabase.Execute("UPDATE account_banned SET active = 0 WHERE unbandate<=UNIX_TIMESTAMP() AND unbandate<>bandate");
-    LoginDatabase.Execute("DELETE FROM ip_banned WHERE unbandate<=UNIX_TIMESTAMP() AND unbandate<>bandate");
+    LoginDatabase.Execute("UPDATE account_banned SET active = 0 WHERE unbandate <= UNIX_TIMESTAMP() AND unbandate <> bandate");
+    LoginDatabase.Execute("DELETE FROM ip_banned WHERE unbandate <= UNIX_TIMESTAMP() AND unbandate <> bandate");
     LoginDatabase.CommitTransaction();
 
     auto rmport = sConfig.GetIntDefault("RealmServerPort", DEFAULT_REALMSERVER_PORT);

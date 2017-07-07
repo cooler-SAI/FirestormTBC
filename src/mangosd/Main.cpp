@@ -38,11 +38,15 @@
 #include <iostream>
 #include <string>
 
+#ifndef _WORLD_CONFIG
+#define _WORLD_CONFIG   "mangosd.conf"
+#endif
+
 #ifdef _WIN32
 #include "ServiceWin32.h"
 char serviceName[] = "mangosd";
-char serviceLongName[] = "MaNGOS world service";
-char serviceDescription[] = "Massive Network Game Object Server";
+char serviceLongName[] = "Worldserver Service";
+char serviceDescription[] = "World of Warcraft Worldserver Service";
 /*
  * -1 - not in service mode
  *  0 - stopped
@@ -89,7 +93,7 @@ int main(int argc, char *argv[])
     boost::program_options::options_description desc("Allowed options");
     desc.add_options()
         ("ahbot,a", boost::program_options::value<std::string>(&auctionBotConfig), "ahbot configuration file")
-        ("config,c", boost::program_options::value<std::string>(&configFile)->default_value(_MANGOSD_CONFIG), "configuration file")
+        ("config,c", boost::program_options::value<std::string>(&configFile)->default_value(_WORLD_CONFIG), "configuration file")
         ("help,h", "prints usage")
         ("version,v", "print version and exit")
 #ifdef _WIN32

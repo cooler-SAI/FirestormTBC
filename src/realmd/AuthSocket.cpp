@@ -827,7 +827,7 @@ bool AuthSocket::_HandleRealmList()
     delete result;
 
     ///- Update realm list if need
-    sRealmList.UpdateIfNeed();
+    sRealmList->UpdateIfNeed();
 
     ///- Circle through realms in the RealmList and construct the return packet (including # of user characters in each realm)
     ByteBuffer pkt;
@@ -852,9 +852,9 @@ void AuthSocket::LoadRealmlist(ByteBuffer& pkt, uint32 acctid)
         case 6141:                                          // 1.12.3
         {
             pkt << uint32(0);                               // unused value
-            pkt << uint8(sRealmList.size());
+            pkt << uint8(sRealmList->size());
 
-            for (RealmList::RealmMap::const_iterator  i = sRealmList.begin(); i != sRealmList.end(); ++i)
+            for (RealmList::RealmMap::const_iterator  i = sRealmList->begin(); i != sRealmList->end(); ++i)
             {
                 uint8 AmountOfCharacters;
 
@@ -913,9 +913,9 @@ void AuthSocket::LoadRealmlist(ByteBuffer& pkt, uint32 acctid)
         default:                                            // and later
         {
             pkt << uint32(0);                               // unused value
-            pkt << uint16(sRealmList.size());
+            pkt << uint16(sRealmList->size());
 
-            for (RealmList::RealmMap::const_iterator  i = sRealmList.begin(); i != sRealmList.end(); ++i)
+            for (RealmList::RealmMap::const_iterator  i = sRealmList->begin(); i != sRealmList->end(); ++i)
             {
                 uint8 AmountOfCharacters;
 

@@ -58,10 +58,9 @@ class RealmList
     public:
         typedef std::map<std::string, Realm> RealmMap;
 
-        static RealmList& Instance();
+        static RealmList* Instance();
 
-        RealmList();
-        ~RealmList() {}
+        ~RealmList();
 
         void Initialize(uint32 updateInterval);
 
@@ -71,8 +70,11 @@ class RealmList
         RealmMap::const_iterator end() const { return m_realms.end(); }
         uint32 size() const { return m_realms.size(); }
     private:
+        RealmList();
+
         void UpdateRealms(bool init);
-        void UpdateRealm(uint32 ID, const std::string& name, const std::string& address, uint32 port, uint8 icon, RealmFlags realmflags, uint8 timezone, AccountTypes allowedSecurityLevel, float popu, const std::string& builds);
+        void UpdateRealm(uint32 ID, const std::string& name, const std::string& address, uint32 port, uint8 icon, 
+            RealmFlags realmflags, uint8 timezone, AccountTypes allowedSecurityLevel, float popu, const std::string& builds);
     private:
         RealmMap m_realms;                                  ///< Internal map of realms
         uint32   m_UpdateInterval;

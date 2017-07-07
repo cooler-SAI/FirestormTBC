@@ -24,13 +24,11 @@
 #include "RealmList.h"
 #include "AuthCodes.h"
 #include "Util.h"                                           // for Tokens typedef
-#include "Policies/Singleton.h"
 #include "Database/DatabaseEnv.h"
 #include <boost/asio/deadline_timer.hpp>
 #include <boost/asio/ip/tcp.hpp>
 
 extern DatabaseType LoginDatabase;
-
 
 static const RealmBuildInfo ExpectedRealmdClientBuilds[] =
 {
@@ -65,10 +63,14 @@ RealmList::RealmList() : m_UpdateInterval(0), m_NextUpdateTime(time(nullptr))
 {
 }
 
-RealmList& sRealmList
+RealmList::~RealmList()
 {
-    static RealmList realmlist;
-    return realmlist;
+}
+
+RealmList* RealmList::Instance()
+{
+    static RealmList instance;
+    return &instance;
 }
 
 /// Load the realm list from the database
