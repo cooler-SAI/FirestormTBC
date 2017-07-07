@@ -243,14 +243,6 @@ if(UNIX)
 
   # If OpenSSL path isn't specified on mac we set the one that homebrew uses
   # since that's what most people will be using.
-  if (APPLE)
-    if (NOT OPENSSL_ROOT_DIR)
-      set(OPENSSL_ROOT_DIR /usr/local/opt/openssl/)
-    endif()
-    if (NOT OPENSSL_INCLUDE_DIR)
-      set(OPENSSL_INCLUDE_DIR /usr/local/opt/openssl/include)
-    endif()
-  endif()
   find_package(OpenSSL 1.0 REQUIRED)
   if(NOT OPENSSL_VERSION VERSION_LESS "1.1")
     message(FATAL_ERROR "You have unsupported version of OpenSSL library. Use version below 1.1")

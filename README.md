@@ -1,8 +1,10 @@
-# Firestorm Freelance -- README
+# Firestorm Freelance
 
-This file is part of the Firestorm Freelance Project. See [AUTHORS](AUTHORS.md) file for Copyright information
+## Build Status
 
-## Welcome to Firestorm Freelance
+master
+:------------:
+[![Build Status](https://travis-ci.org/Firestorm-Freelance/FirestormTBC.svg?branch=master)](https://travis-ci.org/Firestorm-Freelance/FirestormTBC)
 
 Firestorm Freelance is a free project with the following goal:
 
@@ -86,6 +88,11 @@ To be able to accomplish these goals, we support and promote:
 
 
   You can find the full license text in the file [COPYING](COPYING) delivered with this package.
+
+## Authors
+
+This file is part of the Firestorm Freelance Project. See [AUTHORS](AUTHORS.md) file for Copyright information
+
 
 ### Exceptions to GPL
 
