@@ -5,6 +5,7 @@
 master
 :------------:
 [![Build Status](https://travis-ci.org/Firestorm-Freelance/FirestormTBC.svg?branch=master)](https://travis-ci.org/Firestorm-Freelance/FirestormTBC)
+[![Build status](https://ci.appveyor.com/api/projects/status/ox59kw1q7y58kxa2?svg=true)](https://ci.appveyor.com/project/Meltie2013/serverzero)
 
 ## Introduction
 
