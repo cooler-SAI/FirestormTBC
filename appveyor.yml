@@ -85,20 +85,3 @@ build_script:
 artifacts:
   - path: bin\$(platform)_$(configuration)
     name: $(APPVEYOR_PROJECT_NAME)_$(platform)_$(configuration)
-
-# scripts to run before deployment
-before_deploy:
-    ps: Delete-Github-Release $env:APPVEYOR_REPO_NAME $env:SNAPSHOT_TAG $env:APPVEYOR_REPO_COMMIT "$env:SEC_ACCESS_TOKEN"
-
-# deploy settings
-deploy:
-  - provider: GitHub
-    auth_token: $(SEC_ACCESS_TOKEN)
-    release: $(SNAPSHOT_TAG) # name of the tag used
-    description: 'Binaries of commit $(APPVEYOR_REPO_COMMIT) \n$(APPVEYOR_REPO_COMMIT_MESSAGE) \nSnapshot v$(APPVEYOR_BUILD_VERSION)'
-    artifact: $(APPVEYOR_PROJECT_NAME)_$(platform)_$(configuration)
-    draft: false
-    prerelease: true
-    on:
-      branch: master                # release from master branch only
-      appveyor_repo_tag: false      # deploy on tag push only
