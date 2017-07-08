@@ -7,12 +7,6 @@ option(BUILD_LOGIN_SERVER   "Build login server"                    ON)
 option(BUILD_EXTRACTORS     "Build map/dbc/vmap/mmap extractors"    OFF)
 option(BUILD_SCRIPTDEV      "Build ScriptDev. (OFF Speedup build)"  ON)
 
-# TODO: options that should be checked/created:
-#option(CLI                  "With CLI"                              ON)
-#option(RA                   "With Remote Access"                    OFF)
-#option(SQL                  "Copy SQL files"                        OFF)
-#option(TOOLS                "Build tools"                           OFF)
-
 message("")
 message(STATUS
   "This script builds the MaNGOS server.

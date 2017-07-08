@@ -13,9 +13,6 @@ cmake_minimum_required (VERSION 2.6)
 set(EXECUTABLE_NAME "MoveMapGen")
 project (${EXECUTABLE_NAME})
 
-# disable warnings for dependencies
-DisableWarnings()
-
 ADD_DEFINITIONS(-DMMAP_GENERATOR -DNO_CORE_FUNCS)
 ADD_DEFINITIONS(-DDT_POLYREF64)
 ADD_DEFINITIONS(-DNO_vsnprintf)

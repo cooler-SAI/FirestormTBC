@@ -23,41 +23,6 @@ set(CMANGOS_BINARY_REALMD_NAME "realmd")
 
 cmake_minimum_required(VERSION 2.8.12)
 
-# Function to remove duplicate entries in provided string
-function(RemoveDuplicateSubstring stringIn stringOut)
-    separate_arguments(stringIn)
-    list(REMOVE_DUPLICATES stringIn)
-    string(REPLACE ";" " " stringIn "${stringIn}")
-    set(${stringOut} "${stringIn}" PARENT_SCOPE)
-endfunction()
-
-# Macro that replace /Wx with /W0 (supposed to disable warnings)
-MACRO(DisableWarnings)
-  if(MSVC)
-    set(DisableWarningsFlag "/W0")
-    set(SearchWarningsFlag1 "/W[0-4]")
-    set(SearchWarningsFlag2 "/Wall")
-  else()
-    set(DisableWarningsFlag "-w")
-    set(SearchWarningsFlag1 "-[+W?]pedentic")
-    set(SearchWarningsFlag2 "-Wall")
-  endif()
-  foreach(temp_flag
-          CMAKE_CXX_FLAGS CMAKE_CXX_FLAGS_DEBUG CMAKE_CXX_FLAGS_RELEASE
-          CMAKE_CXX_FLAGS_MINSIZEREL CMAKE_CXX_FLAGS_RELWITHDEBINFO CMAKE_C_FLAGS)
-     if(${temp_flag} MATCHES "${SearchWarningsFlag1}")
-        string(REGEX REPLACE "${SearchWarningsFlag1}" "${DisableWarningsFlag}" ${temp_flag} "${${temp_flag}}")
-     elseif(${temp_flag} MATCHES "${SearchWarningsFlag2}")
-        string(REGEX REPLACE "${SearchWarningsFlag2}" "${DisableWarningsFlag}" ${temp_flag} "${${temp_flag}}")
-     else()
-        set(${temp_flag} "${${temp_flag}} ${DisableWarningsFlag}")
-     endif()
-  endforeach()
-ENDMACRO()
-
-# Remove duplicate entries in default flags. (occur when after a second make or configure)
-RemoveDuplicateSubstring("${CMAKE_CXX_FLAGS}" CMAKE_CXX_FLAGS)
-
 include(cmake/common.cmake)
 
 # Set RPATH-handing (CMake parameters)
@@ -65,13 +30,6 @@ set(CMAKE_SKIP_BUILD_RPATH FALSE)
 set(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE)
 set(CMAKE_INSTALL_RPATH ${LIBS_DIR})
 set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
-
-if(MSVC)
-  # Turn on the ability to create folders to organize projects (.vcproj)
-  # It creates "CMakePredefinedTargets" folder by default and adds CMake
-  # defined projects like INSTALL.vcproj and ZERO_CHECK.vcproj
-  set_property(GLOBAL PROPERTY USE_FOLDERS ON)
-endif()
 
 # set default buildoptions and print them
 include(cmake/options.cmake)
@@ -83,39 +41,20 @@ if(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR})
   )
 endif()
 
-# TODO: allow other compilers under windows in the future
-if(WIN32 AND NOT MSVC AND NOT MINGW)
-  message(FATAL_ERROR "Only MSVC++ and MinGW toolchains are supported on Windows at the moment.")
-endif()
-
 include(CheckPlatform)
 
-# TODO: use MSVC_CXX_ARCHITECTURE_ID instead to identify platform on windows (not required on other systems)
-# find platform: required to build 3rd party libraries w/o CMake files
-# Find out what system we use to include the needed libs
-if(WIN32)
-  if(PLATFORM MATCHES X86) # 32-bit
-    set(DEP_ARCH Win32)
-  else() # 64-bit
-    set(DEP_ARCH x64)
-  endif()
+# Find out what system we use to include the needed libs set(CMAKE_BUILD_TYPE "Release")
+if(WIN32)		
+  if(PLATFORM MATCHES X86) # 32-bit		
+    set(DEP_ARCH Win32)		
+  else() # 64-bit		
+    set(DEP_ARCH x64)		
+  endif()		
 endif()
 
-# Override configuration-types - we don't use anything else than debug and release
-if(CMAKE_CONFIGURATION_TYPES)
-  set(CMAKE_CONFIGURATION_TYPES "Release;Debug" CACHE STRING "Reset the configurations to what we need" FORCE)
-else()
-  if(NOT CMAKE_BUILD_TYPE)
-    if (NOT DEBUG)
-      message("Defaulting to release build.")
-      set(CMAKE_BUILD_TYPE Release CACHE STRING "" FORCE)
-    else()
-      set(CMAKE_BUILD_TYPE Debug CACHE STRING "" FORCE)
-    endif()
-  endif()
-  set_property(CACHE CMAKE_BUILD_TYPE PROPERTY HELPSTRING "Choose the type of build")
-  # set the valid options for cmake-gui drop-down list
-  set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "Debug;Release")
+# build in Release-mode by default if not explicitly set
+if( NOT CMAKE_BUILD_TYPE )
+  set(CMAKE_BUILD_TYPE "Release")
 endif()
 
 # find Git: used to get the revision number
@@ -285,14 +224,6 @@ if(NOT BUILD_GAME_SERVER AND NOT BUILD_LOGIN_SERVER AND NOT BUILD_EXTRACTORS)
   message(FATAL_ERROR "You must select something to build!")
 endif()
 
-if(XCODE)
-  if(PLATFORM MATCHES X86)
-    set(CMAKE_OSX_ARCHITECTURES i386)
-  else()
-    set(CMAKE_OSX_ARCHITECTURES x86_64)
-  endif()
-endif()
-
 add_subdirectory(dep)
 
 # Add definitions for all build types
@@ -307,12 +238,6 @@ if(POSTGRESQL)
   set(DEFINITIONS ${DEFINITIONS} DO_POSTGRESQL)
 else()
   set(DEFINITIONS ${DEFINITIONS} DO_MYSQL)
-endif()
-
-if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-  set_directory_properties(PROPERTIES COMPILE_DEFINITIONS "${DEFINITIONS};${DEFINITIONS_DEBUG}")
-else()
-  set_directory_properties(PROPERTIES COMPILE_DEFINITIONS "${DEFINITIONS};${DEFINITIONS_RELEASE}")
 endif()
 
 if(BUILD_GAME_SERVER OR BUILD_LOGIN_SERVER)
