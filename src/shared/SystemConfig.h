@@ -70,6 +70,8 @@
 # else
 #  define _ENDIAN_PLATFORM "Win32 (" _ENDIAN_STRING ")"
 # endif
+# define _MANGOSD_CONFIG  SYSCONFDIR"mangosd.conf"
+# define _REALMD_CONFIG   SYSCONFDIR"realmd.conf"
 # define _AUCTIONHOUSEBOT_CONFIG   SYSCONFDIR"ahbot.conf"
 #else
 # if defined  (__FreeBSD__)
@@ -87,6 +89,8 @@
 # else
 #  define _ENDIAN_PLATFORM "Unix_" ARCHITECTURE " (" _ENDIAN_STRING ")"
 # endif
+# define _MANGOSD_CONFIG  SYSCONFDIR"mangosd.conf"
+# define _REALMD_CONFIG  SYSCONFDIR"realmd.conf"
 # define _AUCTIONHOUSEBOT_CONFIG   SYSCONFDIR"ahbot.conf"
 #endif
 

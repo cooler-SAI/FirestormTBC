@@ -44,10 +44,6 @@
 #include <chrono>
 #include <thread>
 
-#ifndef _REALM_CONFIG
-#define _REALM_CONFIG   "realmd.conf"
-#endif
-
 #ifdef _WIN32
 #include "ServiceWin32.h"
 char serviceName[] = "realmd";
@@ -98,7 +94,7 @@ int main(int argc, char *argv[])
 
     boost::program_options::options_description desc("Allowed options");
     desc.add_options()
-        ("config,c", boost::program_options::value<std::string>(&configFile)->default_value(_REALM_CONFIG), "configuration file")
+        ("config,c", boost::program_options::value<std::string>(&configFile)->default_value(_REALMD_CONFIG), "configuration file")
         ("version,v", "print version and exit")
 #ifdef _WIN32
         ("s", boost::program_options::value<std::string>(&serviceParameter), "<run, install, uninstall> service");
